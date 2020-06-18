@@ -1,0 +1,10 @@
+- name: Template rclone-serve supervisor service
+  loop:
+    - src: supervisor/rclone-serve.conf
+      dest: "{{ supervisord.prefix.config }}/rclone-serve.conf"
+  loop_control:
+    label: "{{ item.dest }}"
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  notify: Restart Supervisord

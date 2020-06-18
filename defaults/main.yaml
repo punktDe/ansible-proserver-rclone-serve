@@ -1,0 +1,5 @@
+rclone_serve:
+  defaults:
+    daemon_user: proserver
+    rclone: /usr/local/bin/rclone
+  config: {}
