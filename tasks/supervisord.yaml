@@ -1,6 +1,6 @@
 - name: Template rclone-serve supervisor service
   loop:
-    - src: supervisor/rclone-serve.conf
+    - src: supervisor/rclone-serve.conf.j2
       dest: "{{ supervisord.prefix.config }}/rclone-serve.conf"
   loop_control:
     label: "{{ item.dest }}"
