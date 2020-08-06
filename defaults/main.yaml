@@ -1,4 +1,6 @@
 rclone_serve:
+  prefix:
+    config: /var/opt/rclone-serve/etc
   defaults:
     daemon_user: proserver
     rclone: >-

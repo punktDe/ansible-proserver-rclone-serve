@@ -2,3 +2,10 @@
   when: ansible_distribution == 'Ubuntu'
   apt:
     name: rclone
+
+- name: Create directories for rclone-serve
+  loop:
+    - "{{ rclone_serve.prefix.config }}"
+  file:
+    path: "{{ item }}"
+    state: directory

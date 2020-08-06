@@ -1,0 +1,15 @@
+- name: Template htpasswd files for rclone-serve
+  vars:
+    dest: "{{ rclone_serve.prefix.config }}/{{ item.key }}.htpasswd"
+    owner: "{{ item.value.daemon_user|default(rclone_serve.defaults.daemon_user, true) }}"
+    rclone_serve_users: "{{ item.value.users }}"
+  loop: "{{ rclone_serve.config|dict2items|rejectattr('value.users', 'undefined')|rejectattr('value.users', 'eq', none)|list }}"
+  loop_control:
+    label: "{{ dest }}"
+  template:
+    src: rclone/htpasswd
+    dest: "{{ dest }}"
+    owner: "{{ owner }}"
+    group: "{{ owner }}"
+    mode: 0600
+    trim_blocks: no

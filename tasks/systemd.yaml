@@ -3,6 +3,7 @@
     - name: Template rclone-serve systemd services
       vars:
         dest: "/etc/systemd/system/rclone-serve-{{ item.key }}.service"
+        rclone_serve_config_name: "{{ item.key }}"
         rclone_serve_config: "{{ item.value }}"
       loop: "{{ rclone_serve.config|dict2items }}"
       loop_control:
