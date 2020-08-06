@@ -1,0 +1,4 @@
+{% import (role_path + "/templates/rclone/rclone")|relpath(playbook_dir) as rclone with context -%}
+[Service]
+User={{ rclone_serve_config.daemon_user|default(rclone_serve.defaults.daemon_user, true) }}
+ExecStart={{ rclone.rclone(rclone_serve_config, rclone_serve.defaults) }}

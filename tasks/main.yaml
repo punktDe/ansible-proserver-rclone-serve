@@ -1,1 +1,3 @@
-- import_tasks: supervisord.yaml
+- import_tasks: install.yaml
+- import_tasks: systemd.yaml
+- import_tasks: supervisor.yaml

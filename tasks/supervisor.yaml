@@ -1,0 +1,11 @@
+- when: ansible_system != 'Linux'
+  block:
+    - name: Template rclone-serve supervisor service
+      loop:
+        - "{{ supervisord.prefix.config }}/rclone-serve.conf"
+      loop_control:
+        label: "{{ item }}"
+      template:
+        src: supervisor/rclone-serve.conf
+        dest: "{{ item }}"
+      notify: Restart Supervisord

@@ -1,0 +1,21 @@
+- when: ansible_system == 'Linux'
+  block:
+    - name: Template rclone-serve systemd services
+      vars:
+        dest: "/etc/systemd/system/rclone-serve-{{ item.key }}.service"
+        rclone_serve_config: "{{ item.value }}"
+      loop: "{{ rclone_serve.config|dict2items }}"
+      loop_control:
+        label: "{{ dest }}"
+      template:
+        src: systemd/rclone-serve.service
+        dest: "{{ dest }}"
+      register: rclone_serve_template_systemd_services_result
+      notify: Restart rclone-serve
+
+    - name: Enable rclone-serve systemd services
+      loop: "{{ rclone_serve_template_systemd_services_result.results|map(attribute='invocation.module_args.dest')|map('basename')|list }}"
+      systemd:
+        daemon_reload: yes
+        name: "{{ item }}"
+        enabled: yes

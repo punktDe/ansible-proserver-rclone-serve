@@ -1,0 +1,4 @@
+- name: Install rclone
+  when: ansible_distribution == 'Ubuntu'
+  apt:
+    name: rclone

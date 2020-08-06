@@ -1,5 +1,10 @@
 rclone_serve:
   defaults:
     daemon_user: proserver
-    rclone: /usr/local/bin/rclone
+    rclone: >-
+      {%- if ansible_system == 'Linux' -%}
+        /usr/bin/rclone
+      {%- else -%}
+        /usr/local/bin/rclone
+      {%- endif -%}
   config: {}

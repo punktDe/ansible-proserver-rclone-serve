@@ -1,0 +1,5 @@
+- name: Restart rclone-serve
+  loop: "{{ rclone_serve_template_systemd_services_result.results|selectattr('changed', 'eq', true)|map(attribute='invocation.module_args.dest')|map('basename')|list }}"
+  service:
+    name: "{{ item }}"
+    state: restarted

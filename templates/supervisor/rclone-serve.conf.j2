@@ -1,5 +1,0 @@
-{% for config_name, config in rclone_serve.config.items() %}
-[program:rclone-serve-{{ config_name }}]
-user={{ config.daemon_user|default(rclone_serve.defaults.daemon_user, true) }}
-command={{ config.rclone|default(rclone_serve.defaults.rclone, true) }} serve {{ config.type }}{% for key in (config.args|default({}, true)).keys()|sort %}{% if config.args[key] is not none %} {{ config.args[key]|quote }}{% endif %}{% endfor %}{% for key in (config.opts|default({}, true)).keys()|sort %}{% if config.opts[key] is not none %} --{{ key|quote }}={{ config.opts[key]|quote }}{% endif %}{% endfor %}
-{% endfor %}
