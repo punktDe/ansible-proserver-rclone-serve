@@ -2,6 +2,8 @@
 [Service]
 User={{ rclone_serve_config.daemon_user|default(rclone_serve.defaults.daemon_user, true) }}
 ExecStart={{ rclone.rclone(rclone_serve_config_name, rclone_serve_config, rclone_serve.defaults) }}
+Restart=on-failure
+RestartSec=60s
 
 [Install]
 WantedBy=multi-user.target
